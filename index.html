@@ -1,208 +1,103 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <h1>Preguntas realizadas</h1>
-    <div class="tarjetas">
-      <div class="tarjeta">
-        <h2>Pregunta 1</h2>
-        <p>¿Cuál es la capital de Francia?</p>
-        <button class="btn" data-respuesta="París">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 2</h2>
-        <p>¿Cuál es la capital de España?</p>
-        <button class="btn" data-respuesta="Madrid">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 3</h2>
-        <p>¿Cuál es la capital de Italia?</p>
-        <button class="btn" data-respuesta="Roma">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 4</h2>
-        <p>¿Cuál es el río más largo del mundo?</p>
-        <button class="btn" data-respuesta="Nilo">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 5</h2>
-        <p>¿Quién pintó la Mona Lisa?</p>
-        <button class="btn" data-respuesta="Leonardo da Vinci">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 6</h2>
-        <p>¿Cuál es el planeta más grande del sistema solar?</p>
-        <button class="btn" data-respuesta="Júpiter">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 7</h2>
-        <p>¿En qué año llegó el hombre a la Luna?</p>
-        <button class="btn" data-respuesta="1969">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 8</h2>
-        <p>¿Cuál es el océano más grande del mundo?</p>
-        <button class="btn" data-respuesta="Océano Pacífico">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 9</h2>
-        <p>¿Quién escribió 'Cien años de soledad'?</p>
-        <button class="btn" data-respuesta="Gabriel García Márquez">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 10</h2>
-        <p>¿Cuál es el metal más ligero?</p>
-        <button class="btn" data-respuesta="Litio">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 11</h2>
-        <p>¿Cuál es el animal terrestre más rápido?</p>
-        <button class="btn" data-respuesta="Guepardo">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 12</h2>
-        <p>¿Cuál es el país más grande del mundo?</p>
-        <button class="btn" data-respuesta="Rusia">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 13</h2>
-        <p>¿Quién descubrió América?</p>
-        <button class="btn" data-respuesta="Cristóbal Colón">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 14</h2>
-        <p>¿Cuál es el idioma más hablado en el mundo?</p>
-        <button class="btn" data-respuesta="Chino mandarín">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 15</h2>
-        <p>¿Cuál es la moneda oficial de Japón?</p>
-        <button class="btn" data-respuesta="Yen">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 16</h2>
-        <p>¿Cuál es el desierto más grande del mundo?</p>
-        <button class="btn" data-respuesta="Antártida">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 17</h2>
-        <p>¿Quién escribió 'Don Quijote de la Mancha'?</p>
-        <button class="btn" data-respuesta="Miguel de Cervantes">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 18</h2>
-        <p>¿Cuál es el país con más habitantes?</p>
-        <button class="btn" data-respuesta="China">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 19</h2>
-        <p>¿Cuál es el elemento químico con símbolo O?</p>
-        <button class="btn" data-respuesta="Oxígeno">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 20</h2>
-        <p>¿En qué continente está Egipto?</p>
-        <button class="btn" data-respuesta="África">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 21</h2>
-        <p>¿Cuál es la montaña más alta del mundo?</p>
-        <button class="btn" data-respuesta="Monte Everest">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 22</h2>
-        <p>¿Quién fue el primer presidente de Estados Unidos?</p>
-        <button class="btn" data-respuesta="George Washington">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 23</h2>
-        <p>¿Cuál es el país más pequeño del mundo?</p>
-        <button class="btn" data-respuesta="Ciudad del Vaticano">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 24</h2>
-        <p>¿Cuál es el principal gas de efecto invernadero?</p>
-        <button class="btn" data-respuesta="Dióxido de carbono (CO₂)">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 25</h2>
-        <p>¿Cuál es el órgano más grande del cuerpo humano?</p>
-        <button class="btn" data-respuesta="La piel">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 26</h2>
-        <p>¿En qué país se encuentra la Torre Eiffel?</p>
-        <button class="btn" data-respuesta="Francia">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 27</h2>
-        <p>¿Cuál es el símbolo químico del oro?</p>
-        <button class="btn" data-respuesta="Au">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 28</h2>
-        <p>¿Quién escribió 'Romeo y Julieta'?</p>
-        <button class="btn" data-respuesta="William Shakespeare">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 29</h2>
-        <p>¿Cuál es el mar más grande del mundo?</p>
-        <button class="btn" data-respuesta="Mar de Filipinas">Ver respuesta</button>
-      </div>
-      <div class="tarjeta">
-        <h2>Pregunta 30</h2>
-        <p>¿Cuál es el inventor de la bombilla eléctrica?</p>
-        <button class="btn" data-respuesta="Thomas Edison">Ver respuesta</button>
-      </div>
-    </div>
-    <!-- Modal flotante -->
-    <div class="modal-overlay" id="modalOverlay">
-      <div class="modal-content">
-        <button class="modal-close" id="modalClose">&times;</button>
-        <h3>Respuesta</h3>
-        <p id="modalRespuesta"></p>
-      </div>
-    </div>
-    <script>
-      // Mostrar modal con la respuesta
-      document.querySelectorAll('.btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          document.getElementById('modalRespuesta').textContent = this.dataset.respuesta;
-          const overlay = document.getElementById('modalOverlay');
-          overlay.classList.add('active');
-        });
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto CrediFiel - Estrategia de Cobranza</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    input[type="file"], button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Panel de Estrategia de Cobranza - CrediFiel</h1>
+
+    <section>
+      <h2>Subir archivo de datos (placeholder)</h2>
+      <input type="file" id="inputData" />
+      <button onclick="procesarDatos()">Procesar</button>
+    </section>
+
+    <section>
+      <h2>Datos procesados (placeholder)</h2>
+      <table id="tablaResultados">
+        <thead>
+          <tr>
+            <th>Banco</th>
+            <th>Monto vencido</th>
+            <th>% Recuperación</th>
+            <th>Comisión</th>
+            <th>Días promedio</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Filas generadas dinámicamente -->
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <script>
+    function procesarDatos() {
+      // Placeholder para la lógica de procesamiento de archivo y cálculo
+      alert("Procesamiento de datos pendiente de implementación.");
+
+      // Ejemplo de datos ficticios para mostrar en la tabla
+      const data = [
+        { banco: "Banco A", monto: 1000000, recuperacion: 0.7, comision: 0.03, dias: 10 },
+        { banco: "Banco B", monto: 800000, recuperacion: 0.8, comision: 0.025, dias: 7 },
+        { banco: "Banco C", monto: 1200000, recuperacion: 0.5, comision: 0.02, dias: 15 }
+      ];
+
+      const tbody = document.querySelector("#tablaResultados tbody");
+      tbody.innerHTML = "";
+
+      data.forEach(item => {
+        const score = (item.monto * item.recuperacion) / (item.comision * item.dias);
+        const row = `
+          <tr>
+            <td>${item.banco}</td>
+            <td>$${item.monto.toLocaleString()}</td>
+            <td>${(item.recuperacion * 100).toFixed(1)}%</td>
+            <td>${(item.comision * 100).toFixed(2)}%</td>
+            <td>${item.dias}</td>
+            <td>${score.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
+          </tr>
+        `;
+        tbody.innerHTML += row;
       });
-
-      // Función para cerrar el modal con animación
-      function cerrarModalAnimado() {
-        const overlay = document.getElementById('modalOverlay');
-        const content = overlay.querySelector('.modal-content');
-        // Quita la clase active para iniciar la animación de cierre
-        overlay.classList.remove('active');
-      }
-
-      // Cerrar modal al hacer click en la X
-      document.getElementById('modalClose').onclick = function() {
-        cerrarModalAnimado();
-      };
-
-      // Cerrar modal al hacer click fuera del contenido
-      document.getElementById('modalOverlay').onclick = function(e) {
-        if (e.target === this) cerrarModalAnimado();
-      };
-
-      // Al terminar la transición de opacidad, oculta el overlay si no está activo
-      document.getElementById('modalOverlay').addEventListener('transitionend', function() {
-        if (!this.classList.contains('active')) {
-          this.style.display = 'none';
-          // Fuerza el reflow para permitir mostrarlo de nuevo
-          void this.offsetWidth;
-          this.style.display = '';
-        }
-      });
-    </script>
-  </body>
+    }
+  </script>
+</body>
 </html>
