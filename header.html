@@ -1,11 +1,21 @@
 <header class="bg-[#004a99] text-white shadow-md">
   <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
     <h1 class="text-xl font-bold">Domiciliación Inteligente</h1>
-    <nav class="space-x-4">
+    <nav class="space-x-4 flex items-center">
       <a href="/index.html" class="hover:underline">Inicio</a>
       <a href="/historial.html" class="hover:underline">Historial</a>
-      <a href="/login.html" class="bg-white text-[#004a99] px-3 py-1 rounded-md hover:bg-gray-100 border border-[#004a99]">Iniciar Sesión</a>
-      <a href="/registro.html" class="bg-[#004a99] text-white px-3 py-1 rounded-md hover:bg-[rgba(0,0,128,0.7)] border border-white">Registrarse</a>
+
+      <a href="/login.html" id="login-link" class="bg-white text-[#004a99] px-3 py-1 rounded-md hover:bg-gray-100 border border-[#004a99]">Iniciar Sesión</a>
+      <a href="/registro.html" id="register-link" class="bg-[#004a99] text-white px-3 py-1 rounded-md hover:bg-[rgba(0,0,128,0.7)] border border-white">Registrarse</a>
+
+      <div id="user-dropdown" class="relative hidden">
+        <button id="profile-btn" class="w-10 h-10 rounded-full bg-white border border-white flex items-center justify-center text-[#004a99] font-bold hover:bg-gray-100">👤</button>
+        <div id="profile-card" class="hidden absolute right-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-md w-64 p-4 z-50 text-[#004a99]">
+          <p class="font-semibold" id="profile-username">Usuario</p>
+          <p class="text-sm text-gray-600" id="profile-email">email@ejemplo.com</p>
+          <button id="logout-button" class="mt-4 w-full text-left text-red-600 hover:underline">Cerrar sesión</button>
+        </div>
+      </div>
     </nav>
   </div>
 </header>

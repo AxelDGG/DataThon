@@ -7,11 +7,7 @@
 </head>
 <body class="bg-[#f4f4f4] min-h-screen">
   <div id="header"></div>
-  <script>
-    fetch("/header.html")
-      .then(res => res.text())
-      .then(html => document.getElementById("header").innerHTML = html);
-  </script>
+<script src="/navbar.js"></script>
 
   <div class="max-w-2xl mx-auto mt-12 p-6 bg-white rounded-xl shadow-md border border-[#004a99]">
     <h2 class="text-2xl font-bold mb-4 text-[#004a99]">Subir archivo .zip</h2>
