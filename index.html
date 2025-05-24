@@ -2,102 +2,23 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reto CrediFiel - Estrategia de Cobranza</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f5f5f5;
-    }
-    h1 {
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      background-color: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-    table, th, td {
-      border: 1px solid #ccc;
-    }
-    th, td {
-      padding: 10px;
-      text-align: center;
-    }
-    input[type="file"], button {
-      margin-top: 10px;
-    }
-  </style>
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="container">
-    <h1>Panel de Estrategia de Cobranza - CrediFiel</h1>
-
-    <section>
-      <h2>Subir archivo de datos (placeholder)</h2>
-      <input type="file" id="inputData" />
-      <button onclick="procesarDatos()">Procesar</button>
-    </section>
-
-    <section>
-      <h2>Datos procesados (placeholder)</h2>
-      <table id="tablaResultados">
-        <thead>
-          <tr>
-            <th>Banco</th>
-            <th>Monto vencido</th>
-            <th>% Recuperación</th>
-            <th>Comisión</th>
-            <th>Días promedio</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Filas generadas dinámicamente -->
-        </tbody>
-      </table>
-    </section>
-  </div>
-
+<body class="bg-[#f4f4f4] min-h-screen">
+  <div id="header"></div>
   <script>
-    function procesarDatos() {
-      // Placeholder para la lógica de procesamiento de archivo y cálculo
-      alert("Procesamiento de datos pendiente de implementación.");
-
-      // Ejemplo de datos ficticios para mostrar en la tabla
-      const data = [
-        { banco: "Banco A", monto: 1000000, recuperacion: 0.7, comision: 0.03, dias: 10 },
-        { banco: "Banco B", monto: 800000, recuperacion: 0.8, comision: 0.025, dias: 7 },
-        { banco: "Banco C", monto: 1200000, recuperacion: 0.5, comision: 0.02, dias: 15 }
-      ];
-
-      const tbody = document.querySelector("#tablaResultados tbody");
-      tbody.innerHTML = "";
-
-      data.forEach(item => {
-        const score = (item.monto * item.recuperacion) / (item.comision * item.dias);
-        const row = `
-          <tr>
-            <td>${item.banco}</td>
-            <td>$${item.monto.toLocaleString()}</td>
-            <td>${(item.recuperacion * 100).toFixed(1)}%</td>
-            <td>${(item.comision * 100).toFixed(2)}%</td>
-            <td>${item.dias}</td>
-            <td>${score.toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
-          </tr>
-        `;
-        tbody.innerHTML += row;
-      });
-    }
+    fetch("/header.html")
+      .then(res => res.text())
+      .then(html => document.getElementById("header").innerHTML = html);
   </script>
+
+  <div class="max-w-2xl mx-auto mt-12 p-6 bg-white rounded-xl shadow-md border border-[#004a99]">
+    <h2 class="text-2xl font-bold mb-4 text-[#004a99]">Subir archivo .zip</h2>
+    <form action="/procesamiento/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="zipfile" accept=".zip" required class="mb-4 border border-[#004a99] rounded p-2 text-[#004a99] w-full">
+      <button type="submit" class="bg-[#004a99] text-white px-4 py-2 rounded-lg hover:bg-[rgba(0,0,128,0.7)]">Procesar archivo</button>
+    </form>
+  </div>
 </body>
 </html>
