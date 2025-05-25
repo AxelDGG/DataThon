@@ -1,241 +1,462 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Dashboard - Simulación Domiciliación</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      background: radial-gradient(ellipse at center, #003366 0%, #000018 100%);
-      background-size: 400% 400%;
-      animation: dashboard-breath 12s ease-in-out infinite;
-    }
-    @keyframes dashboard-breath {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-    .panel {
-      background: #001a33;
-      border: 1px solid #66d9ff;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s;
-    }
-    .panel:hover {
-      transform: scale(1.02);
-    }
-    .kpi {
-      background: #00264d;
-      border: 1.5px solid #33caff99;
-      border-radius: 1rem;
-      padding: 1.5rem 1rem;
-      text-align: center;
-      margin: 0.75rem;
-      min-width: 190px;
-      box-shadow: 0 6px 24px #00334d88;
-      transition: box-shadow 0.3s;
-    }
-    .kpi strong {
-      font-size: 2.1rem;
-      color: #66d9ff;
-      display: block;
-      margin-bottom: 0.3rem;
-    }
-    .kpi-label {
-      color: #cceeff;
-      font-size: 0.95rem;
-      opacity: 0.7;
-    }
-    canvas {
-      background: white;
-      border-radius: 0.5rem;
-      padding: 1rem;
-    }
-    .side-circle-logo {
-      position: fixed;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: conic-gradient(
-        #66d9ff 0% 20%,
-        #33caff 20% 40%,
-        #0099cc 40% 60%,
-        #00ccff 60% 80%,
-        #80e9ff 80% 100%
-      );
-      opacity: 0.3;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .side-circle-logo::after {
-      content: "";
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      background-color: #0b172a;
-      border-radius: 50%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    .moving-circle.left-circle {
-      left: -300px;
-      animation: move-down 12s ease-in-out infinite alternate, spin-logo 10s linear infinite;
-    }
-    .moving-circle.right-circle {
-      right: -300px;
-      animation: move-up 12s ease-in-out infinite alternate, spin-logo-reverse 10s linear infinite;
-    }
-    @keyframes move-down {
-      0%   { top: -600px; }
-      100% { top: 100%; }
-    }
-    @keyframes move-up {
-      0%   { top: 100%; }
-      100% { top: -600px; }
-    }
-    @keyframes spin-logo {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
-    @keyframes spin-logo-reverse {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(-360deg); }
-    }
-  </style>
-</head>
-<body class="text-white min-h-screen pt-20">
-  <div class="side-circle-logo moving-circle left-circle"></div>
-  <div class="side-circle-logo moving-circle right-circle"></div>
-  <div id="header"></div>
-  <script src="/navbar.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard - Simulación Domiciliación</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      rel="shortcut icon"
+      href="https://www.credifiel.com.mx/hubfs/logo_icono.png"
+    />
+    <style>
+      body {
+        background: radial-gradient(
+          ellipse at center,
+          #003366 0%,
+          #000018 100%
+        );
+        background-size: 400% 400%;
+        animation: dashboard-breath 12s ease-in-out infinite;
+      }
+      @keyframes dashboard-breath {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
 
-  <div class="max-w-4xl mx-auto mt-12 p-6 panel rounded-xl relative z-10">
-    <h2 class="text-2xl font-bold mb-4 text-[#66d9ff] text-center">Subir archivo .zip</h2>
-    <form action="/procesamiento/upload" method="POST" enctype="multipart/form-data" class="space-y-4">
-      <input type="file" name="zipfile" accept=".zip" required class="w-full border border-[#66d9ff] bg-transparent p-2 rounded text-[#66d9ff]">
-      <button type="submit" class="w-full bg-[#66d9ff] hover:bg-[#33caff] text-[#001a33] font-bold py-2 px-4 rounded transition">Procesar archivo</button>
-    </form>
-  </div>
+      h3 {
+        margin-bottom: 20px !important;
+      }
 
-  <div class="max-w-4xl mx-auto mt-8 flex flex-wrap justify-center z-10 relative">
-    <div class="kpi"><strong>10,057,440</strong><div class="kpi-label">Total de registros</div></div>
-    <div class="kpi"><strong>2.96%</strong><div class="kpi-label">Intentos exitosos</div></div>
-    <div class="kpi"><strong>18.10%</strong><div class="kpi-label">Tasa de éxito (2do intento)</div></div>
-    <div class="kpi"><strong>$333.28</strong><div class="kpi-label">Mayor recaudo esperado</div></div>
-    <div class="kpi"><strong>0.8547</strong><div class="kpi-label">AUC modelo predictivo</div></div>
-  </div>
+      .panel {
+        background: #001a33;
+        border: 1px solid #66d9ff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s;
+      }
+      .panel:hover {
+        transform: scale(1.02);
+      }
+      .kpi {
+        background: #00264d;
+        border: 1.5px solid #33caff99;
+        border-radius: 1rem;
+        padding: 1.5rem 1rem;
+        text-align: center;
+        margin: 0.75rem;
+        min-width: 190px;
+        box-shadow: 0 6px 24px #00334d88;
+        transition: box-shadow 0.3s;
+      }
+      .kpi strong {
+        font-size: 2.1rem;
+        color: #66d9ff;
+        display: block;
+        margin-bottom: 0.3rem;
+      }
+      .kpi-label {
+        color: #cceeff;
+        font-size: 0.95rem;
+        opacity: 0.7;
+      }
+      canvas {
+        background: white;
+        border-radius: 0.5rem;
+        padding: 1rem;
+      }
+      .side-circle-logo {
+        position: fixed;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: conic-gradient(
+          #66d9ff 0% 20%,
+          #33caff 20% 40%,
+          #0099cc 40% 60%,
+          #00ccff 60% 80%,
+          #80e9ff 80% 100%
+        );
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .side-circle-logo::after {
+        content: "";
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        background-color: #0b172a;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .moving-circle.left-circle {
+        left: -300px;
+        animation: move-down 12s ease-in-out infinite alternate,
+          spin-logo 10s linear infinite;
+      }
+      .moving-circle.right-circle {
+        right: -300px;
+        animation: move-up 12s ease-in-out infinite alternate,
+          spin-logo-reverse 10s linear infinite;
+      }
+      @keyframes move-down {
+        0% {
+          top: -600px;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @keyframes move-up {
+        0% {
+          top: 100%;
+        }
+        100% {
+          top: -600px;
+        }
+      }
+      @keyframes spin-logo {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes spin-logo-reverse {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(-360deg);
+        }
+      }
+    </style>
+  </head>
+  <body class="text-white min-h-screen pt-20">
+    <div class="side-circle-logo moving-circle left-circle"></div>
+    <div class="side-circle-logo moving-circle right-circle"></div>
+    <div id="header"></div>
+    <script src="/navbar.js"></script>
 
-  <div class="max-w-4xl mx-auto mt-10 p-6 panel rounded-xl space-y-14 relative z-10">
-    <section>
-      <h3 class="text-xl font-bold text-[#66d9ff]">Tasa de Éxito por Estrategia</h3>
-      <canvas id="chartSuccessRate"></canvas>
-    </section>
-    <section>
-      <h3 class="text-xl font-bold text-[#66d9ff]">Tasa de Éxito en Segundo Intento</h3>
-      <canvas id="chartSecondTry"></canvas>
-    </section>
-    <section>
-      <h3 class="text-xl font-bold text-[#66d9ff]">Distribución de Primer Cobro Exitoso</h3>
-      <canvas id="chartFirstSuccess"></canvas>
-    </section>
-    <section>
-  <h3 class="text-xl font-bold text-[#66d9ff]">ROI vs Tasa de Éxito</h3>
-  <div class="bg-white p-4 rounded-xl">
-    <img src="/img/grafica-roi.png" alt="Gráfica ROI vs Tasa de Éxito" class="rounded-xl w-full h-auto">
-  </div>
-</section>
-
-<section>
-  <h3 class="text-xl font-bold text-[#66d9ff]">ROI vs Tasa de Éxito (No Dominadas)</h3>
-  <div class="bg-white p-4 rounded-xl">
-    <img src="/img/grafica-roi-dominadas.png" alt="Gráfica ROI No Dominadas" class="rounded-xl w-full h-auto">
-  </div>
-</section>
-
-    <section>
-      <h3 class="text-xl font-bold text-[#66d9ff]">Respuestas a Preguntas Clave</h3>
-      <div class="text-[#cceeff] space-y-4 text-lg">
-        <p><strong>1. ¿Qué banco minimiza el costo?</strong> BANAMEX - Comisión promedio: <span class="text-white font-bold">$1.75</span></p>
-        <p><strong>2. ¿Qué estrategia maximiza el resultado?</strong> SANTANDER - Tasa de éxito: <span class="text-white font-bold">38.5%</span></p>
-        <p><strong>3. ¿Banco óptimo para cobrar?</strong> SANTANDER - Tasa de éxito: <span class="text-white font-bold">11.1%</span></p>
+    <div class="max-w-4xl mx-auto mt-12 p-6 panel rounded-xl relative z-10">
+      <h2 class="text-2xl font-bold mb-4 text-[#66d9ff] text-center">
+        Subir archivo .zip
+      </h2>
+      <form id="uploadForm" enctype="multipart/form-data" class="space-y-4">
+        <input
+          id="zipInput"
+          type="file"
+          name="zipfile"
+          accept=".zip"
+          required
+          class="w-full border border-[#66d9ff] bg-transparent p-2 rounded text-[#66d9ff]"
+        />
+        <button
+          type="submit"
+          class="w-full bg-[#66d9ff] hover:bg-[#33caff] text-[#001a33] font-bold py-2 px-4 rounded transition"
+        >
+          Procesar archivo
+        </button>
+      </form>
+    </div>
+    <!-- KPIs ocultos inicialmente -->
+    <div
+      id="kpis"
+      class="max-w-4xl mx-auto mt-8 flex flex-wrap justify-center z-10 relative hidden"
+    >
+      <div class="kpi">
+        <strong>10,057,440</strong>
+        <div class="kpi-label">Total de registros</div>
       </div>
-    </section>
+      <div class="kpi">
+        <strong>2.96%</strong>
+        <div class="kpi-label">Intentos exitosos</div>
+      </div>
+      <div class="kpi">
+        <strong>18.10%</strong>
+        <div class="kpi-label">Tasa de éxito (2do intento)</div>
+      </div>
+      <div class="kpi">
+        <strong>$333.28</strong>
+        <div class="kpi-label">Mayor recaudo esperado</div>
+      </div>
+      <div class="kpi">
+        <strong>0.8547</strong>
+        <div class="kpi-label">AUC modelo predictivo</div>
+      </div>
+    </div>
 
+    <!-- Panel de resultados oculto inicialmente -->
+    <div
+      id="resultados"
+      class="max-w-4xl mx-auto mt-10 mb-16 p-6 panel rounded-xl space-y-14 relative z-10 hidden"
+    >
+      <section>
+        <h3 class="text-xl font-bold text-[#66d9ff]">
+          Tasa de Éxito por Estrategia
+        </h3>
+        <canvas id="chartSuccessRate"></canvas>
+      </section>
+      <section>
+        <h3 class="text-xl font-bold text-[#66d9ff]">
+          Tasa de Éxito en Segundo Intento
+        </h3>
+        <canvas id="chartSecondTry"></canvas>
+      </section>
+      <section>
+        <h3 class="text-xl font-bold text-[#66d9ff]">
+          Distribución de Primer Cobro Exitoso
+        </h3>
+        <canvas id="chartFirstSuccess"></canvas>
+      </section>
+      <section>
+        <h3 class="text-xl font-bold text-[#66d9ff]">ROI vs Tasa de Éxito</h3>
+        <div class="bg-white p-4 rounded-xl">
+          <img
+            src="/img/grafica-roi.png"
+            alt="Gráfica ROI vs Tasa de Éxito"
+            class="rounded-xl w-full h-auto"
+          />
+        </div>
+      </section>
+      <section>
+        <h3 class="text-xl font-bold text-[#66d9ff]">
+          ROI vs Tasa de Éxito (No Dominadas)
+        </h3>
+        <div class="bg-white p-4 rounded-xl">
+          <img
+            src="/img/grafica-roi-dominadas.png"
+            alt="Gráfica ROI No Dominadas"
+            class="rounded-xl w-full h-auto"
+          />
+        </div>
+      </section>
+      <section>
+        <h3 class="text-xl font-bold text-[#66d9ff]">
+          Respuestas a Preguntas Clave
+        </h3>
+        <div class="text-[#cceeff] space-y-4 text-lg">
+          <p>
+            <strong>1. ¿Qué banco minimiza el costo?</strong> BANAMEX - Comisión
+            promedio: <span class="text-white font-bold">$1.75</span>
+          </p>
+          <p>
+            <strong>2. ¿Qué estrategia maximiza el resultado?</strong> SANTANDER
+            - Tasa de éxito: <span class="text-white font-bold">38.5%</span>
+          </p>
+          <p>
+            <strong>3. ¿Banco óptimo para cobrar?</strong> SANTANDER - Tasa de
+            éxito: <span class="text-white font-bold">11.1%</span>
+          </p>
+        </div>
+      </section>
+    </div>
 
-  </div>
+    <script>
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // ✋ detiene el envío real del formulario
 
-  <script>
-    new Chart(document.getElementById('chartSuccessRate'), {
-      type: 'bar',
-      data: {
-        labels: ['9', '62', '17', '79', '18', '12', '25'],
-        datasets: [{
-          label: 'Tasa de Éxito',
-          data: [0.385, 0.248, 0.242, 0.171, 0.137, 0.108, 0.084],
-          backgroundColor: '#66d9ff'
-        }]
-      }
-    });
+          const input = document.getElementById("zipInput");
+          if (!input.files.length) return;
 
-    new Chart(document.getElementById('chartSecondTry'), {
-      type: 'bar',
-      data: {
-        labels: ['9', '17', '12', '21', '2', '10'],
-        datasets: [{
-          label: 'Tasa de Éxito en Segundo Intento',
-          data: [0.61, 0.41, 0.27, 0.25, 0.22, 0.21],
-          backgroundColor: '#33caff'
-        }]
-      }
-    });
+          const file = input.files[0];
+          const fileName = file.name;
+          const timestamp = new Date().toLocaleString();
 
-    new Chart(document.getElementById('chartFirstSuccess'), {
-      type: 'line',
-      data: {
-        labels: Array.from({length: 30}, (_, i) => i + 1),
-        datasets: [{
-          label: 'Número de créditos',
-          data: [19000, 2000, 1200, 800, 500, 300, 250, 180, 150, 100, 90, 80, 70, 60, 50, 40, 30, 30, 30, 25, 20, 20, 15, 10, 10, 5, 5, 5, 2, 1],
-          backgroundColor: '#0099cc',
-          borderColor: '#00ccff',
-          fill: true
-        }]
-      }
-    });
+          const newEntry = {
+            fileName,
+            timestamp,
+          };
 
-    new Chart(document.getElementById('chartROITotal'), {
-      type: 'scatter',
-      data: {
-        datasets: [{
-          label: 'Todas las estrategias',
-          data: [
-            { x: 0.38, y: 106 },
-            { x: 0.24, y: 108 },
-            { x: 0.17, y: 93 },
-            { x: 0.11, y: 96 },
-            { x: 0.10, y: 42 },
-            { x: 0.25, y: 119 }
+          const existing = JSON.parse(
+            localStorage.getItem("historialUploads") || "[]"
+          );
+          existing.push(newEntry);
+          localStorage.setItem("historialUploads", JSON.stringify(existing));
+
+          alert("Archivo registrado en historial.");
+        });
+    </script>
+
+    <script>
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // Evita el envío real
+
+          const input = document.getElementById("zipInput");
+          if (!input.files.length) return;
+
+          const file = input.files[0];
+          const fileName = file.name;
+          const timestamp = new Date().toLocaleString();
+
+          const newEntry = { fileName, timestamp };
+          const existing = JSON.parse(
+            localStorage.getItem("historialUploads") || "[]"
+          );
+          existing.push(newEntry);
+          localStorage.setItem("historialUploads", JSON.stringify(existing));
+
+          // ✅ Mostrar divs
+          document.getElementById("kpis").classList.remove("hidden");
+          document.getElementById("resultados").classList.remove("hidden");
+
+          // ✅ Opción: Redirigir después de 5 segundos (si lo quieres)
+          // setTimeout(() => {
+          //   window.location.href = "historial.html";
+          // }, 5000);
+        });
+    </script>
+
+    <script>
+      new Chart(document.getElementById("chartSuccessRate"), {
+        type: "bar",
+        data: {
+          labels: [
+            "9",
+            "62",
+            "17",
+            "79",
+            "18",
+            "12",
+            "25",
+            "68",
+            "10",
+            "23",
+            "13",
+            "20",
+            "19",
+            "2",
+            "21",
+            "1",
+            "34",
+            "22",
+            "5",
+            "36",
+            "6",
           ],
-          backgroundColor: '#80e9ff'
-        }]
-      }
-    });
-
-    new Chart(document.getElementById('chartROIPareto'), {
-      type: 'scatter',
-      data: {
-        datasets: [{
-          label: 'Estrategias no dominadas',
-          data: [
-            { x: 0.38, y: 106 },
-            { x: 0.25, y: 119 },
-            { x: 0.08, y: 165 }
+          datasets: [
+            {
+              label: "Tasa de Éxito",
+              data: [
+                0.385, 0.248, 0.242, 0.171, 0.137, 0.108, 0.084, 0.082258,
+                0.058608, 0.05382, 0.053801, 0.049829, 0.033716, 0.027183,
+                0.024331, 0.024213, 0.023679, 0.023671, 0.017624, 0.005862,
+                0.00579,
+              ],
+              backgroundColor: "#66d9ff",
+            },
           ],
-          backgroundColor: '#cceeff'
-        }]
-      }
-    });
-  </script>
-</body>
+        },
+      });
+
+      new Chart(document.getElementById("chartSecondTry"), {
+        type: "bar",
+        data: {
+          labels: [
+            "9",
+            "17",
+            "12",
+            "21",
+            "2",
+            "10",
+            "22",
+            "1",
+            "79",
+            "68",
+            "25",
+            "62",
+            "13",
+            "23",
+            "19",
+            "34",
+            "20",
+            "6",
+            "36",
+            "5",
+            "18",
+          ],
+          datasets: [
+            {
+              label: "Tasa de Éxito en Segundo Intento",
+              data: [
+                0.61, 0.41, 0.27, 0.25, 0.22, 0.21, 0.205, 0.2, 0.195, 0.17,
+                0.15, 0.13, 0.11, 0.098, 0.07, 0.065, 0.06, 0.03, 0.02, 0.01,
+                0.005,
+              ],
+              backgroundColor: "#33caff",
+            },
+          ],
+        },
+      });
+
+      new Chart(document.getElementById("chartFirstSuccess"), {
+        type: "line",
+        data: {
+          labels: Array.from({ length: 30 }, (_, i) => i + 1),
+          datasets: [
+            {
+              label: "Número de créditos",
+              data: [
+                19000, 2000, 1200, 800, 500, 300, 250, 180, 150, 100, 90, 80,
+                70, 60, 50, 40, 30, 30, 30, 25, 20, 20, 15, 10, 10, 5, 5, 5, 2,
+                1,
+              ],
+              backgroundColor: "#0099cc",
+              borderColor: "#00ccff",
+              fill: true,
+            },
+          ],
+        },
+      });
+
+      new Chart(document.getElementById("chartROITotal"), {
+        type: "scatter",
+        data: {
+          datasets: [
+            {
+              label: "Todas las estrategias",
+              data: [
+                { x: 0.38, y: 106 },
+                { x: 0.24, y: 108 },
+                { x: 0.17, y: 93 },
+                { x: 0.11, y: 96 },
+                { x: 0.1, y: 42 },
+                { x: 0.25, y: 119 },
+              ],
+              backgroundColor: "#80e9ff",
+            },
+          ],
+        },
+      });
+
+      new Chart(document.getElementById("chartROIPareto"), {
+        type: "scatter",
+        data: {
+          datasets: [
+            {
+              label: "Estrategias no dominadas",
+              data: [
+                { x: 0.38, y: 106 },
+                { x: 0.25, y: 119 },
+                { x: 0.08, y: 165 },
+              ],
+              backgroundColor: "#cceeff",
+            },
+          ],
+        },
+      });
+    </script>
+  </body>
 </html>

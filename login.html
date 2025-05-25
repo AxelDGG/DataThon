@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Iniciar Sesión</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="shortcut icon" href="https://www.credifiel.com.mx/hubfs/logo_icono.png">
   <style>
     body {
       background: radial-gradient(ellipse at center, #000080 0%, #000018 100%);
@@ -36,6 +37,39 @@
     .login-input::placeholder {
       color: #77bfff;
     }
+
+    .side-circle-logo.bottom-right-circle {
+  position: fixed;
+  width: 1200px;
+  height: 1200px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #004a99 0% 20%,
+    #003b80 20% 40%,
+    #002c66 40% 60%,
+    #0062cc 60% 80%,
+    #007bff 80% 100%
+  );
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+  right: -600px;
+  bottom: -600px;
+  animation: spin-logo 20s linear infinite;
+}
+
+.side-circle-logo.bottom-right-circle::after {
+  content: "";
+  position: absolute;
+  width: 400px;  /* agujero más grande */
+  height: 400px;
+  background-color: #0b172a;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
   </style>
 </head>
 <body class="text-white min-h-screen pt-20">
@@ -45,6 +79,9 @@
       .then(res => res.text())
       .then(html => document.getElementById("header").innerHTML = html);
   </script>
+  <!-- Logo circular decorativo -->
+<div class="side-circle-logo bottom-right-circle"></div>
+
 
   <main class="flex justify-center items-center mt-12 px-4">
     <div class="login-card max-w-md w-full rounded-xl p-8 border border-blue-400">

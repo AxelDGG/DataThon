@@ -164,76 +164,26 @@
     <div class="side-circle-logo bottom-right-circle"></div>
     <div class="side-circle-logo top-left-circle"></div>
 
-    <div class="max-w-4xl mx-auto mt-32 p-6 panel rounded-xl relative z-10">
-      <h2 class="historial-title">Tus Procesamientos</h2>
-      <div id="historial" class="historial-content">
-        <!-- Aquí se llenará con JS -->
-      </div>
-
-      <section class="mt-16">
-        <h3 class="text-xl font-bold text-[#66d9ff] text-center mb-6">
-          Historial de Archivos Procesados
-        </h3>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-[#cceeff] border-collapse">
-            <thead>
-              <tr class="text-[#66d9ff] border-b border-[#66d9ff]">
-                <th class="py-2 px-4">Nombre del Archivo</th>
-                <th class="py-2 px-4">Fecha</th>
-                <th class="py-2 px-4 text-center">Abrir</th>
-                <th class="py-2 px-4 text-center">Eliminar</th>
-              </tr>
-            </thead>
-            <tbody id="historial-body">
-              <!-- Rellenado dinámicamente con JS -->
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <script>
-        function renderHistorial() {
-          const historial = JSON.parse(
-            localStorage.getItem("historialUploads") || "[]"
-          );
-          const tbody = document.getElementById("historial-body");
-          tbody.innerHTML = "";
-
-          if (historial.length === 0) {
-            tbody.innerHTML =
-              '<tr><td colspan="4" class="text-center text-[#999] py-4">No hay archivos cargados aún.</td></tr>';
-            return;
-          }
-
-          historial.forEach((entry, index) => {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-        <td class="py-2 px-4">${entry.fileName}</td>
-        <td class="py-2 px-4">${entry.timestamp}</td>
-        <td class="py-2 px-4 text-center">
-          <a href="index.html" title="Abrir archivo" class="hover:underline text-xl">🔍</a>
-        </td>
-        <td class="py-2 px-4 text-center">
-          <button onclick="eliminarArchivo(${index})" title="Eliminar archivo" class="hover:text-red-500 text-xl">🗑️</button>
-        </td>
-      `;
-            tbody.appendChild(tr);
-          });
-        }
-
-        function eliminarArchivo(index) {
-          if (confirm("¿Deseas eliminar este archivo del historial?")) {
-            const historial = JSON.parse(
-              localStorage.getItem("historialUploads") || "[]"
-            );
-            historial.splice(index, 1);
-            localStorage.setItem("historialUploads", JSON.stringify(historial));
-            renderHistorial();
-          }
-        }
-
-        renderHistorial();
-      </script>
+    <div class="max-w-4xl mx-auto mt-12 p-6 panel rounded-xl relative z-10">
+      <h2 class="text-2xl font-bold mb-4 text-[#66d9ff] text-center">
+        Subir archivo .csv
+      </h2>
+      <form id="uploadForm" enctype="multipart/form-data" class="space-y-4">
+        <input
+          id="csvfile"
+          type="file"
+          name="csvfile"
+          accept=".csv"
+          required
+          class="w-full border border-[#66d9ff] bg-transparent p-2 rounded text-[#66d9ff]"
+        />
+        <button
+          type="submit"
+          class="w-full bg-[#66d9ff] hover:bg-[#33caff] text-[#001a33] font-bold py-2 px-4 rounded transition"
+        >
+          Procesar archivo
+        </button>
+      </form>
     </div>
   </body>
 </html>
