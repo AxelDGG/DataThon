@@ -2,12 +2,21 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const sql = require('mssql');
+const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Asegurar que la carpeta uploads exista
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
 
 const dbConfig = {
   user: process.env.DB_USER,
@@ -19,6 +28,18 @@ const dbConfig = {
     trustServerCertificate: false
   }
 };
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './uploads');
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const extension = path.extname(file.originalname);
+    cb(null, 'perfil-' + uniqueSuffix + extension);
+  }
+});
+const upload = multer({ storage });
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
@@ -41,7 +62,8 @@ app.post('/auth/login', async (req, res) => {
     const user = {
       id: record.Id,
       username: record.Username,
-      email: record.Email
+      email: record.Email,
+      fotoPerfil: record.FotoPerfil || null
     };
 
     return res.json({ message: 'Login exitoso', user });
@@ -53,8 +75,10 @@ app.post('/auth/login', async (req, res) => {
   }
 });
 
-app.post('/auth/register', async (req, res) => {
+app.post('/auth/register', upload.single('fotoPerfil'), async (req, res) => {
   const { username, email, password } = req.body;
+  const fotoPerfil = req.file ? `/uploads/${req.file.filename}` : null;
+
   try {
     await sql.connect(dbConfig);
     const request = new sql.Request();
@@ -69,6 +93,24 @@ app.post('/auth/register', async (req, res) => {
     if (!res.headersSent) {
       res.status(500).json({ message: 'Error en el registro' });
     }
+  }
+});
+
+app.post('/auth/upload-foto', upload.single('foto'), async (req, res) => {
+  const { userId } = req.body;
+  const filename = req.file.filename;
+
+  try {
+    await sql.connect(dbConfig);
+    const request = new sql.Request();
+    request.input('UserId', sql.Int, userId);
+    request.input('FotoPerfil', sql.NVarChar(255), `/uploads/${filename}`);
+    await request.execute('usp_ActualizarFotoPerfil');
+
+    res.status(200).json({ message: 'Foto actualizada correctamente', path: `/uploads/${filename}` });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error al guardar la foto' });
   }
 });
 

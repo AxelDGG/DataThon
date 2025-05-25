@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caso de Estudio - Credifiel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: radial-gradient(ellipse at center, #000080 0%, #000018 100%);
+      animation: background-breath 8s ease-in-out infinite;
+      background-size: 400% 400%;
+    }
+
+    @keyframes background-breath {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .card {
+      background-color: #001133;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
+
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.4s; }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.2), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .breathing {
+      animation: breathing 4s ease-in-out infinite;
+    }
+    @keyframes breathing {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.03); opacity: 0.95; }
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="text-white pt-20">
+  <div id="header"></div>
+  <script src="/navbar.js"></script>
+
+  <section class="text-center pt-20 px-6 max-w-4xl mx-auto">
+    <h1 class="text-4xl font-extrabold mb-4 breathing">Domiciliación Inteligente</h1>
+    <p class="text-lg text-gray-300 mb-8 breathing">Transformando la estrategia de cobranza bancaria con ciencia de datos</p>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-6 py-8">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-2xl font-bold text-[#00ccff] mb-4">Qué es Credifiel</h2>
+      <p class="text-gray-300 text-md leading-relaxed">
+        Credifiel es una empresa financiera mexicana con más de 20 años de trayectoria, especializada en la colocación de créditos personales mediante descuento vía nómina y domiciliación bancaria. Su enfoque está orientado a brindar soluciones accesibles para empleados del sector público, especialmente aquellos que no cuentan con convenios tradicionales. <br><br>
+        Con más de 650,000 créditos otorgados, se ha posicionado como un actor clave en la inclusión financiera del país. Su visión es clara: automatizar, escalar y optimizar. A través de alianzas estratégicas, innovación en tecnología financiera, y una operación centrada en el cliente, Credifiel ha buscado convertirse en un referente en cobranza inteligente y eficiente.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div class="card rounded-xl p-8 shadow-lg" onmousemove="moveGradient(event, this)">
+        <h2 class="text-2xl font-bold text-[#00ccff] mb-4">El Reto</h2>
+        <p class="text-gray-300 text-md leading-relaxed">
+          Aunque Credifiel había realizado importantes inversiones en motores de domiciliación y automatización bancaria, no existía una lógica centralizada basada en ciencia de datos que determinara cuándo, cómo y con qué banco ejecutar un cobro. <br><br>
+          El principal reto no era la falta de infraestructura, sino la falta de inteligencia aplicada. Los intentos de cobro se generaban sin considerar el historial del cliente, las tasas de efectividad por banco, o los horarios óptimos. Esto generaba miles de intentos fallidos y un gasto operativo significativo en comisiones. <br><br>
+          El reto consistía en transformar el histórico de millones de registros en un sistema de recomendación para una cobranza estratégica, personalizada y predictiva.
+        </p>
+      </div>
+
+      <div class="card rounded-xl p-8 shadow-lg" onmousemove="moveGradient(event, this)">
+        <h2 class="text-2xl font-bold text-[#00ccff] mb-4">Cómo lo solucionamos</h2>
+        <p class="text-gray-300 italic">[Aquí irá una explicación de la solución técnica implementada: procesamiento de archivos .zip, modelo de predicción, visualización de KPIs y dashboard automatizado.]</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="text-center text-sm text-gray-500 pb-10">
+    &copy; 2025 Credifiel - Proyecto Datathon Tec de Monterrey
+  </footer>
+
+  <script>
+    function moveGradient(e, el) {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      el.style.setProperty('--x', `${x}px`);
+      el.style.setProperty('--y', `${y}px`);
+    }
+  </script>
+</body>
+</html>

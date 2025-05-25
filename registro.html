@@ -4,8 +4,41 @@
   <meta charset="UTF-8">
   <title>Registro</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: radial-gradient(ellipse at center, #000080 0%, #000018 100%);
+      animation: bg-pulse 15s ease-in-out infinite;
+      background-size: 400% 400%;
+    }
+    @keyframes bg-pulse {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .register-card {
+      background: #001133;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      animation: fadeInUp 1s ease-out forwards;
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    @keyframes fadeInUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    .form-input {
+      background-color: transparent;
+      border: 1px solid #00ccff;
+      color: #00ccff;
+    }
+    .form-input::placeholder {
+      color: #77bfff;
+    }
+  </style>
 </head>
-<body class="bg-[#f4f4f4] min-h-screen">
+<body class="text-white min-h-screen pt-20">
   <div id="header"></div>
   <script>
     fetch("/header.html")
@@ -13,18 +46,19 @@
       .then(html => document.getElementById("header").innerHTML = html);
   </script>
 
-  <div class="flex justify-center mt-16">
-    <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-md border border-[#004a99]">
-      <h2 class="text-2xl font-bold text-center text-[#004a99] mb-6">Crear Cuenta</h2>
-      <form action="/auth/register" method="POST">
-        <input class="w-full p-2 border border-[#004a99] rounded-lg mb-4 text-[#004a99]" type="text" name="username" placeholder="Usuario" required>
-        <input class="w-full p-2 border border-[#004a99] rounded-lg mb-4 text-[#004a99]" type="email" name="email" placeholder="Correo electrónico" required>
-        <input class="w-full p-2 border border-[#004a99] rounded-lg mb-4 text-[#004a99]" type="password" name="password" placeholder="Contraseña" required>
-        <button class="w-full bg-[#004a99] hover:bg-[rgba(0,0,128,0.7)] text-white font-bold py-2 px-4 rounded-xl" type="submit">Registrarse</button>
+  <main class="flex justify-center items-center mt-12 px-4">
+    <div class="register-card max-w-md w-full rounded-xl p-8 border border-blue-400">
+      <h2 class="text-2xl font-bold text-center text-[#00ccff] mb-6">Crear Cuenta</h2>
+      <form action="/auth/register" method="POST" enctype="multipart/form-data">
+        <input class="w-full p-3 rounded mb-4 form-input" type="text" name="username" placeholder="Usuario" required>
+        <input class="w-full p-3 rounded mb-4 form-input" type="email" name="email" placeholder="Correo electrónico" required>
+        <input class="w-full p-3 rounded mb-4 form-input" type="password" name="password" placeholder="Contraseña" required>
+        <label class="block text-sm text-[#00ccff] mb-2">Foto de perfil (opcional)</label>
+        <input class="w-full mb-4 text-sm text-white" type="file" name="fotoPerfil" accept="image/*">
+        <button class="w-full bg-[#00ccff] hover:bg-[#0099dd] text-[#001133] font-bold py-2 px-4 rounded transition" type="submit">Registrarse</button>
       </form>
-      <p class="mt-4 text-center text-sm text-[#004a99]">¿Ya tienes cuenta? <a href="/login.html" class="text-[#004a99] underline">Inicia sesión aquí</a></p>
+      <p class="mt-4 text-center text-sm text-blue-300">¿Ya tienes cuenta? <a href="/login.html" class="text-blue-400 underline">Inicia sesión aquí</a></p>
     </div>
-  </div>
-  <script src="/registro-handler.js"></script>
+  </main>
 </body>
 </html>

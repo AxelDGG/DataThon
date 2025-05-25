@@ -4,17 +4,97 @@
   <meta charset="UTF-8">
   <title>Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background: radial-gradient(ellipse at center, #000080 0%, #000018 100%);
+      background-size: 400% 400%;
+      animation: dashboard-breath 12s ease-in-out infinite;
+    }
+    @keyframes dashboard-breath {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .panel {
+      background: #001133;
+      border: 1px solid #00ccff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+    .panel:hover {
+      transform: scale(1.02);
+    }
+  </style>
 </head>
-<body class="bg-[#f4f4f4] min-h-screen">
+<body class="text-white min-h-screen pt-20">
   <div id="header"></div>
-<script src="/navbar.js"></script>
+  <script src="/navbar.js"></script>
 
-  <div class="max-w-2xl mx-auto mt-12 p-6 bg-white rounded-xl shadow-md border border-[#004a99]">
-    <h2 class="text-2xl font-bold mb-4 text-[#004a99]">Subir archivo .zip</h2>
-    <form action="/procesamiento/upload" method="POST" enctype="multipart/form-data">
-      <input type="file" name="zipfile" accept=".zip" required class="mb-4 border border-[#004a99] rounded p-2 text-[#004a99] w-full">
-      <button type="submit" class="bg-[#004a99] text-white px-4 py-2 rounded-lg hover:bg-[rgba(0,0,128,0.7)]">Procesar archivo</button>
+  <div class="max-w-4xl mx-auto mt-12 p-6 panel rounded-xl">
+    <h2 class="text-2xl font-bold mb-4 text-[#00ccff] text-center">Subir archivo .zip</h2>
+    <form action="/procesamiento/upload" method="POST" enctype="multipart/form-data" class="space-y-4">
+      <input type="file" name="zipfile" accept=".zip" required class="w-full border border-[#00ccff] bg-transparent p-2 rounded text-[#00ccff]">
+      <button type="submit" class="w-full bg-[#00ccff] hover:bg-[#0099dd] text-[#001133] font-bold py-2 px-4 rounded transition">Procesar archivo</button>
     </form>
   </div>
+
+  <div class="max-w-4xl mx-auto mt-10 p-6 panel rounded-xl space-y-12">
+    <section>
+      <h3 class="text-xl font-bold text-[#00ccff]">1. Estrategia que minimice el costo de comisiones</h3>
+      <p class="text-3xl mt-2 font-semibold text-[#00ccff]">🏦 Banco Placeholder</p>
+      <canvas id="chart1" class="mt-4"></canvas>
+    </section>
+    <section>
+      <h3 class="text-xl font-bold text-[#00ccff]">2. Estrategia que maximice el resultado de la cobranza</h3>
+      <p class="text-3xl mt-2 font-semibold text-[#00ccff]">📈 Estrategia Placeholder</p>
+      <canvas id="chart2" class="mt-4"></canvas>
+    </section>
+    <section>
+      <h3 class="text-xl font-bold text-[#00ccff]">3. ¿Por cuál banco debo cobrar?</h3>
+      <p class="text-3xl mt-2 font-semibold text-[#00ccff]">💰 Banco Óptimo Placeholder</p>
+      <canvas id="chart3" class="mt-4"></canvas>
+    </section>
+  </div>
+
+  <script>
+    const chart1 = new Chart(document.getElementById('chart1'), {
+      type: 'pie',
+      data: {
+        labels: ['Banco A', 'Banco B', 'Banco C'],
+        datasets: [{
+          label: 'Comisiones en %',
+          data: [35, 25, 40],
+          backgroundColor: ['#00ccff', '#3399ff', '#66d9ff']
+        }]
+      }
+    });
+
+    const chart2 = new Chart(document.getElementById('chart2'), {
+      type: 'bar',
+      data: {
+        labels: ['Estrategia A', 'Estrategia B', 'Estrategia C'],
+        datasets: [{
+          label: 'Porcentaje de efectividad',
+          data: [78, 85, 92],
+          backgroundColor: '#00ccff'
+        }]
+      }
+    });
+
+    const chart3 = new Chart(document.getElementById('chart3'), {
+      type: 'line',
+      data: {
+        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May'],
+        datasets: [{
+          label: 'Cobros exitosos por banco',
+          data: [300, 400, 450, 500, 620],
+          borderColor: '#00ccff',
+          backgroundColor: 'rgba(0,204,255,0.2)',
+          tension: 0.3,
+          fill: true
+        }]
+      }
+    });
+  </script>
 </body>
 </html>

@@ -1,19 +1,27 @@
-<header class="bg-[#004a99] text-white shadow-md">
+<header class="bg-[#000428] bg-opacity-80 backdrop-blur-md text-white shadow-lg border-b border-blue-500 fixed top-0 w-full z-50">
   <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-    <h1 class="text-xl font-bold">Domiciliación Inteligente</h1>
+    <h1 class="text-xl font-extrabold tracking-wide">Domiciliación Inteligente</h1>
     <nav class="space-x-4 flex items-center">
-      <a href="/index.html" class="hover:underline">Inicio</a>
-      <a href="/historial.html" class="hover:underline">Historial</a>
+      <a href="/caso.html" class="hover:text-[#00ccff] transition">Inicio</a>
+      <a href="/index.html" class="hover:text-[#00ccff] transition">Dashboard</a>
+      <a href="/historial.html" class="hover:text-[#00ccff] transition">Historial</a>
 
-      <a href="/login.html" id="login-link" class="bg-white text-[#004a99] px-3 py-1 rounded-md hover:bg-gray-100 border border-[#004a99]">Iniciar Sesión</a>
-      <a href="/registro.html" id="register-link" class="bg-[#004a99] text-white px-3 py-1 rounded-md hover:bg-[rgba(0,0,128,0.7)] border border-white">Registrarse</a>
+      <a href="/login.html" id="login-link" class="px-3 py-1 rounded-md bg-white text-[#000428] hover:bg-[#e0e0ff] font-semibold transition">Iniciar Sesión</a>
+      <a href="/registro.html" id="register-link" class="px-3 py-1 rounded-md bg-[#004a99] hover:bg-[rgba(0,0,128,0.7)] text-white font-semibold transition">Registrarse</a>
 
       <div id="user-dropdown" class="relative hidden">
-        <button id="profile-btn" class="w-10 h-10 rounded-full bg-white border border-white flex items-center justify-center text-[#004a99] font-bold hover:bg-gray-100">👤</button>
-        <div id="profile-card" class="hidden absolute right-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-md w-64 p-4 z-50 text-[#004a99]">
-          <p class="font-semibold" id="profile-username">Usuario</p>
-          <p class="text-sm text-gray-600" id="profile-email">email@ejemplo.com</p>
-          <button id="logout-button" class="mt-4 w-full text-left text-red-600 hover:underline">Cerrar sesión</button>
+        <img id="profile-btn" src="/img/default-avatar.png" class="w-10 h-10 rounded-full border-2 border-white object-cover hover:cursor-pointer" alt="Foto perfil" />
+        <div id="profile-card" class="hidden absolute right-0 mt-2 w-72 bg-white border border-gray-300 rounded-lg shadow-2xl p-4 z-50 text-[#004a99] space-y-3">
+          <div>
+            <p class="font-semibold text-base" id="profile-username">Usuario</p>
+            <p class="text-sm text-gray-600 break-words" id="profile-email">email@ejemplo.com</p>
+          </div>
+          <form id="form-foto" class="space-y-2" enctype="multipart/form-data">
+            <label class="block text-sm text-[#004a99]">Cambiar foto de perfil:</label>
+            <input type="file" name="foto" accept="image/*" class="text-sm text-[#004a99] w-full">
+            <button class="w-full text-sm text-white bg-[#004a99] hover:bg-[#003377] py-1 rounded" type="submit">Actualizar foto</button>
+          </form>
+          <button id="logout-button" class="w-full text-left text-red-600 hover:underline">Cerrar sesión</button>
         </div>
       </div>
     </nav>

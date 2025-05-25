@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const logoutBtn    = document.getElementById('logout-button');
       const profileBtn   = document.getElementById('profile-btn');
       const profileCard  = document.getElementById('profile-card');
+      const formFoto     = document.getElementById('form-foto');
 
       if (user) {
         if (loginLink)    loginLink.style.display = 'none';
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (userDropdown) userDropdown.style.display = 'inline-block';
         if (navUsername)  navUsername.textContent = user.username;
         if (navEmail)     navEmail.textContent = user.email || '(sin email)';
+        if (profileBtn && user.fotoPerfil) profileBtn.src = user.fotoPerfil;
 
         if (profileBtn && profileCard) {
           profileBtn.addEventListener('click', () => {
@@ -36,6 +38,27 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             localStorage.removeItem('user');
             window.location.href = '/login.html';
+          });
+        }
+
+        if (formFoto) {
+          formFoto.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(formFoto);
+            formData.append('userId', user.id);
+
+            const res = await fetch('/auth/upload-foto', {
+              method: 'POST',
+              body: formData
+            });
+
+            const data = await res.json();
+            if (data.path) {
+              user.fotoPerfil = data.path;
+              localStorage.setItem('user', JSON.stringify(user));
+              if (profileBtn) profileBtn.src = data.path;
+              location.reload();
+            }
           });
         }
 
