@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Caso de Estudio - Credifiel</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="shortcut icon" href="https://www.credifiel.com.mx/hubfs/logo_icono.png">
+    <link
+      rel="shortcut icon"
+      href="https://www.credifiel.com.mx/hubfs/logo_icono.png"
+    />
     <style>
       body {
         background: radial-gradient(
@@ -173,10 +176,26 @@
           <h2 class="text-2xl font-bold text-[#00ccff] mb-4">
             Cómo lo solucionamos
           </h2>
-          <p class="text-gray-300 italic">
-            [Aquí irá una explicación de la solución técnica implementada:
-            procesamiento de archivos .zip, modelo de predicción, visualización
-            de KPIs y dashboard automatizado.]
+          <p class="text-gray-300 text-md leading-relaxed">
+            Para resolver el reto de optimizar la cobranza domiciliada, partimos
+            del procesamiento automatizado de archivos .zip que contienen el
+            historial de intentos de cobro. A partir de estos datos, realizamos
+            una limpieza y transformación para construir un dataset consolidado
+            con más de 10 millones de registros históricos.<br /><br />
+            Sobre este dataset, calculamos métricas clave como la tasa de éxito
+            por estrategia (<code>idEmisora</code>), el costo promedio por banco
+            y el ROI ajustado por cada combinación de estrategia y entidad
+            bancaria. Posteriormente, entrenamos un modelo de clasificación para
+            predecir la probabilidad de éxito de un intento, alcanzando un AUC
+            de 0.8547. Este modelo sirvió como base para construir un sistema de
+            recomendación de estrategias en dos escenarios: minimizar costos o
+            maximizar cobranza.<br /><br />
+            Finalmente, desarrollamos un dashboard visual e interactivo que
+            resume los hallazgos con gráficas animadas, KPIs y respuestas
+            automatizadas para apoyar la toma de decisiones operativas. Todo el
+            flujo, desde la carga de archivos hasta las recomendaciones por
+            estrategia y banco, está completamente automatizado, eliminando la
+            necesidad de análisis manual.
           </p>
         </div>
       </div>
