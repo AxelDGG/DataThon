@@ -30,7 +30,8 @@
     .card:nth-child(2) { animation-delay: 0.2s; }
     .card:nth-child(3) { animation-delay: 0.4s; }
 
-    .card::before {
+    /* Degradado hover solo para las que NO son tilt-card */
+    .card:not(.tilt-card)::before {
       content: "";
       position: absolute;
       top: 0; left: 0;
@@ -40,7 +41,7 @@
       transition: opacity 0.3s ease;
       pointer-events: none;
     }
-    .card:hover::before {
+    .card:not(.tilt-card):hover::before {
       opacity: 1;
     }
 
@@ -58,6 +59,24 @@
         transform: translateY(0);
       }
     }
+
+    /* Tilt Card Estilos Mejorados */
+    .tilt-card {
+      box-shadow: 
+        0 16px 56px 0 rgba(0,204,255,0.21), 
+        0 12px 48px 0 rgba(0,0,0,0.50),
+        0 0 16px 2px #00ccff66;
+      outline: 2px solid #00ccff55;
+      outline-offset: 2px;
+    }
+    .tilt-card.tilted, .tilt-card:hover {
+      box-shadow: 
+        0 16px 56px 0 rgba(0,204,255,0.21), 
+        0 12px 48px 0 rgba(0,0,0,0.50),
+        0 0 16px 2px #00ccff66;
+      outline: 2px solid #00ccff55;
+      outline-offset: 2px;
+    }
   </style>
 </head>
 <body class="text-white pt-20">
@@ -70,8 +89,10 @@
   </section>
 
   <section class="max-w-5xl mx-auto px-6 py-8">
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <h2 class="text-2xl font-bold text-[#00ccff] mb-4">Qué es Credifiel</h2>
+    <!-- Tarjeta Tilt 3D -->
+    <div class="card tilt-card rounded-xl p-8 shadow-lg mx-auto max-w-3xl mb-16 text-center"
+     onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)">
+      <h2 class="text-2xl font-bold text-[#00ccff] mb-4">¿Qué es CrediFiel?</h2>
       <p class="text-gray-300 text-md leading-relaxed">
         Credifiel es una empresa financiera mexicana con más de 20 años de trayectoria, especializada en la colocación de créditos personales mediante descuento vía nómina y domiciliación bancaria. Su enfoque está orientado a brindar soluciones accesibles para empleados del sector público, especialmente aquellos que no cuentan con convenios tradicionales. <br><br>
         Con más de 650,000 créditos otorgados, se ha posicionado como un actor clave en la inclusión financiera del país. Su visión es clara: automatizar, escalar y optimizar. A través de alianzas estratégicas, innovación en tecnología financiera, y una operación centrada en el cliente, Credifiel ha buscado convertirse en un referente en cobranza inteligente y eficiente.
@@ -96,7 +117,7 @@
   </section>
 
   <footer class="text-center text-sm text-gray-500 pb-10">
-    &copy; 2025 Credifiel - Proyecto Datathon Tec de Monterrey
+    &copy; 2025 CrediFiel - Proyecto Datathon Tec de Monterrey
   </footer>
 
   <script>
@@ -106,6 +127,24 @@
       const y = e.clientY - rect.top;
       el.style.setProperty('--x', `${x}px`);
       el.style.setProperty('--y', `${y}px`);
+    }
+
+    function tiltCard(e, card) {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const maxTilt = 23; // Ahora mucho más notorio
+      const dx = (x - cx) / cx;
+      const dy = (y - cy) / cy;
+      card.style.transform = `rotateY(${dx * maxTilt}deg) rotateX(${-dy * maxTilt}deg) scale(1.05)`;
+      card.classList.add('tilted');
+    }
+
+    function resetTilt(card) {
+      card.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
+      card.classList.remove('tilted');
     }
   </script>
 </body>

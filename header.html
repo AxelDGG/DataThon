@@ -1,10 +1,31 @@
 <header class="bg-[#000428] bg-opacity-80 backdrop-blur-md text-white shadow-lg border-b border-blue-500 fixed top-0 w-full z-50">
+  <style>
+    .nav-link {
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.3s ease;
+    }
+    .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background-color: #00ccff;
+  transition: width 0.3s ease;
+  transform: translateX(-50%);
+}
+    .nav-link:hover::after {
+      width: 100%;
+    }
+  </style>
   <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
     <h1 class="text-xl font-extrabold tracking-wide">Domiciliación Inteligente</h1>
     <nav class="space-x-4 flex items-center">
-      <a href="/caso.html" class="hover:text-[#00ccff] transition">Inicio</a>
-      <a href="/index.html" class="hover:text-[#00ccff] transition">Dashboard</a>
-      <a href="/historial.html" class="hover:text-[#00ccff] transition">Historial</a>
+      <a href="/caso.html" class="nav-link hover:text-[#00ccff] transition">Inicio</a>
+      <a href="/index.html" class="nav-link hover:text-[#00ccff] transition">Dashboard</a>
+      <a href="/historial.html" class="nav-link hover:text-[#00ccff] transition">Historial</a>
 
       <a href="/login.html" id="login-link" class="px-3 py-1 rounded-md bg-white text-[#000428] hover:bg-[#e0e0ff] font-semibold transition">Iniciar Sesión</a>
       <a href="/registro.html" id="register-link" class="px-3 py-1 rounded-md bg-[#004a99] hover:bg-[rgba(0,0,128,0.7)] text-white font-semibold transition">Registrarse</a>
