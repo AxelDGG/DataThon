@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Historial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="shortcut icon"
+      href="https://www.credifiel.com.mx/hubfs/logo_icono.png"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: radial-gradient(
+          ellipse at center,
+          #003366 0%,
+          #000018 100%
+        );
+        background-size: 400% 400%;
+        animation: dashboard-breath 12s ease-in-out infinite;
+        min-height: 100vh;
+        font-family: "Montserrat", Arial, sans-serif;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      @keyframes dashboard-breath {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      .panel {
+        background: #001a33;
+        border: 1px solid #66d9ff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s;
+      }
+
+      .panel:hover {
+        transform: scale(1.02);
+      }
+
+      .historial-title {
+        font-size: 1.7rem;
+        font-weight: bold;
+        color: #66d9ff;
+        text-align: center;
+        margin-bottom: 24px;
+        font-family: "Montserrat", Arial, sans-serif;
+      }
+
+      .historial-content {
+        color: #cceeff;
+        text-align: center;
+        font-size: 1.1rem;
+      }
+
+      /* ===== CÍRCULO INFERIOR DERECHA ===== */
+      .side-circle-logo.bottom-right-circle {
+        position: fixed;
+        width: 1200px;
+        height: 1200px;
+        border-radius: 50%;
+        background: conic-gradient(
+          #004a99 0% 20%,
+          #003b80 20% 40%,
+          #002c66 40% 60%,
+          #0062cc 60% 80%,
+          #007bff 80% 100%
+        );
+        opacity: 0.09;
+        pointer-events: none;
+        z-index: 0;
+        right: -600px;
+        bottom: -600px;
+        animation: spin-logo 20s linear infinite;
+      }
+
+      .side-circle-logo.bottom-right-circle::after {
+        content: "";
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background-color: #000018;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      /* ===== NUEVO: CÍRCULO SUPERIOR IZQUIERDA ===== */
+      .side-circle-logo.top-left-circle {
+        position: fixed;
+        width: 1200px;
+        height: 1200px;
+        border-radius: 50%;
+        background: conic-gradient(
+          #004a99 0% 20%,
+          #003b80 20% 40%,
+          #002c66 40% 60%,
+          #0062cc 60% 80%,
+          #007bff 80% 100%
+        );
+        opacity: 0.09;
+        pointer-events: none;
+        z-index: 0;
+        left: -600px;
+        top: -600px;
+        animation: spin-logo-reverse 20s linear infinite;
+      }
+
+      .side-circle-logo.top-left-circle::after {
+        content: "";
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background-color: #000018;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      /* ROTACIÓN */
+      @keyframes spin-logo {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin-logo-reverse {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(-360deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .side-circle-logo {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <div id="header"></div>
+    <div style="height: 90px"></div>
+    <script src="/navbar.js"></script>
+
+    <!-- Círculos decorativos -->
+    <div class="side-circle-logo bottom-right-circle"></div>
+    <div class="side-circle-logo top-left-circle"></div>
+
+    <div class="max-w-4xl mx-auto mt-12 p-6 panel rounded-xl relative z-10">
+      <h2 class="text-2xl font-bold mb-4 text-[#66d9ff] text-center">
+        Subir archivo .csv
+      </h2>
+      <form id="uploadForm" enctype="multipart/form-data" class="space-y-4">
+        <input
+          id="csvfile"
+          type="file"
+          name="csvfile"
+          accept=".csv"
+          required
+          class="w-full border border-[#66d9ff] bg-transparent p-2 rounded text-[#66d9ff]"
+        />
+        <button
+          type="submit"
+          class="w-full bg-[#66d9ff] hover:bg-[#33caff] text-[#001a33] font-bold py-2 px-4 rounded transition"
+        >
+          Procesar archivo
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,23 +1,239 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Historial</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-[#f4f4f4] min-h-screen">
-  <div id="header"></div>
-  <script>
-    fetch("/header.html")
-      .then(res => res.text())
-      .then(html => document.getElementById("header").innerHTML = html);
-  </script>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Historial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="shortcut icon"
+      href="https://www.credifiel.com.mx/hubfs/logo_icono.png"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: radial-gradient(
+          ellipse at center,
+          #003366 0%,
+          #000018 100%
+        );
+        background-size: 400% 400%;
+        animation: dashboard-breath 12s ease-in-out infinite;
+        min-height: 100vh;
+        font-family: "Montserrat", Arial, sans-serif;
+        overflow-x: hidden;
+        position: relative;
+      }
 
-  <div class="max-w-4xl mx-auto mt-12 bg-white p-6 rounded-xl shadow-md border border-[#004a99]">
-    <h2 class="text-2xl font-bold text-[#004a99] mb-4">Tus Procesamientos</h2>
-    <div id="historial" class="space-y-4 text-[#004a99]">
-      <!-- Aquí se llenará con JS -->
+      @keyframes dashboard-breath {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      .panel {
+        background: #001a33;
+        border: 1px solid #66d9ff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s;
+      }
+
+      .panel:hover {
+        transform: scale(1.02);
+      }
+
+      .historial-title {
+        font-size: 1.7rem;
+        font-weight: bold;
+        color: #66d9ff;
+        text-align: center;
+        margin-bottom: 24px;
+        font-family: "Montserrat", Arial, sans-serif;
+      }
+
+      .historial-content {
+        color: #cceeff;
+        text-align: center;
+        font-size: 1.1rem;
+      }
+
+      /* ===== CÍRCULO INFERIOR DERECHA ===== */
+      .side-circle-logo.bottom-right-circle {
+        position: fixed;
+        width: 1200px;
+        height: 1200px;
+        border-radius: 50%;
+        background: conic-gradient(
+          #004a99 0% 20%,
+          #003b80 20% 40%,
+          #002c66 40% 60%,
+          #0062cc 60% 80%,
+          #007bff 80% 100%
+        );
+        opacity: 0.09;
+        pointer-events: none;
+        z-index: 0;
+        right: -600px;
+        bottom: -600px;
+        animation: spin-logo 20s linear infinite;
+      }
+
+      .side-circle-logo.bottom-right-circle::after {
+        content: "";
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background-color: #000018;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      /* ===== NUEVO: CÍRCULO SUPERIOR IZQUIERDA ===== */
+      .side-circle-logo.top-left-circle {
+        position: fixed;
+        width: 1200px;
+        height: 1200px;
+        border-radius: 50%;
+        background: conic-gradient(
+          #004a99 0% 20%,
+          #003b80 20% 40%,
+          #002c66 40% 60%,
+          #0062cc 60% 80%,
+          #007bff 80% 100%
+        );
+        opacity: 0.09;
+        pointer-events: none;
+        z-index: 0;
+        left: -600px;
+        top: -600px;
+        animation: spin-logo-reverse 20s linear infinite;
+      }
+
+      .side-circle-logo.top-left-circle::after {
+        content: "";
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background-color: #000018;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      /* ROTACIÓN */
+      @keyframes spin-logo {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin-logo-reverse {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(-360deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .side-circle-logo {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <div id="header"></div>
+    <div style="height: 90px"></div>
+    <script src="/navbar.js"></script>
+
+    <!-- Círculos decorativos -->
+    <div class="side-circle-logo bottom-right-circle"></div>
+    <div class="side-circle-logo top-left-circle"></div>
+
+    <div class="max-w-4xl mx-auto mt-32 p-6 panel rounded-xl relative z-10">
+      <h2 class="historial-title">Tus Procesamientos</h2>
+      <div id="historial" class="historial-content">
+        <!-- Aquí se llenará con JS -->
+      </div>
+
+      <section class="mt-16">
+        <h3 class="text-xl font-bold text-[#66d9ff] text-center mb-6">
+          Historial de Archivos Procesados
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-[#cceeff] border-collapse">
+            <thead>
+              <tr class="text-[#66d9ff] border-b border-[#66d9ff]">
+                <th class="py-2 px-4">Nombre del Archivo</th>
+                <th class="py-2 px-4">Fecha</th>
+                <th class="py-2 px-4 text-center">Abrir</th>
+                <th class="py-2 px-4 text-center">Eliminar</th>
+              </tr>
+            </thead>
+            <tbody id="historial-body">
+              <!-- Rellenado dinámicamente con JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <script>
+        function renderHistorial() {
+          const historial = JSON.parse(
+            localStorage.getItem("historialUploads") || "[]"
+          );
+          const tbody = document.getElementById("historial-body");
+          tbody.innerHTML = "";
+
+          if (historial.length === 0) {
+            tbody.innerHTML =
+              '<tr><td colspan="4" class="text-center text-[#999] py-4">No hay archivos cargados aún.</td></tr>';
+            return;
+          }
+
+          historial.forEach((entry, index) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+        <td class="py-2 px-4">${entry.fileName}</td>
+        <td class="py-2 px-4">${entry.timestamp}</td>
+        <td class="py-2 px-4 text-center">
+          <a href="index.html" title="Abrir archivo" class="hover:underline text-xl">🔍</a>
+        </td>
+        <td class="py-2 px-4 text-center">
+          <button onclick="eliminarArchivo(${index})" title="Eliminar archivo" class="hover:text-red-500 text-xl">🗑️</button>
+        </td>
+      `;
+            tbody.appendChild(tr);
+          });
+        }
+
+        function eliminarArchivo(index) {
+          if (confirm("¿Deseas eliminar este archivo del historial?")) {
+            const historial = JSON.parse(
+              localStorage.getItem("historialUploads") || "[]"
+            );
+            historial.splice(index, 1);
+            localStorage.setItem("historialUploads", JSON.stringify(historial));
+            renderHistorial();
+          }
+        }
+
+        renderHistorial();
+      </script>
     </div>
-  </div>
-</body>
+  </body>
 </html>
